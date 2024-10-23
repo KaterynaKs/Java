@@ -1,0 +1,32 @@
+package homework.homework_06;
+
+public class ElementNotFound {
+
+//    Дан массив размера  n-1, содержащий только различные целые числа в диапазоне от 1 до n .
+//    Найдите недостающий элемент.
+//            input:
+//    arr[] = {1,2,3,5}
+//    out: 4
+//    arr[] = {6,1,2,8,3,4,7,10,5}
+//    out: 9
+
+    public static void main(String[] args) {
+
+        int[] arr1 = {1, 2, 3, 5};
+        int[] arr2 = {6, 1, 2, 8, 3, 4, 7, 10, 5};
+
+        System.out.println("Недостающий элемент массива 1: " + findMissingNumber(arr1));
+        System.out.println("Недостающий элемент массива 2: " + findMissingNumber(arr2));
+    }
+
+    public static int findMissingNumber(int[] arr) {
+        int n = arr.length + 1; // n
+        int expectedSum = n * (n + 1) / 2; // формула арифметической прогрессии
+        int actualSum = 0;
+
+        for (int num : arr) {
+            actualSum += num;
+        }
+        return expectedSum - actualSum; // недостающий элемент
+    }
+}
