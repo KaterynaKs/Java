@@ -1,0 +1,38 @@
+package homework.homework_06;
+
+public class SQL {
+
+//    Сформировать SQL запрос:  Вернуть все записи из cars, где параметры равны заданным, используя StringBuilder.
+//    Если значение null, то параметр не должен попадать в запрос.
+//    {"model", "V-60", "country", "Germany", "city", "Berlin", "year", null, "active", true}
+//    Пример: {"id", 1, "country", null, "city", "Helsinki", "year", null}
+//    Результат: SELECT * FROM users WHERE id = '1'  AND city = 'Helsilnki';
+
+    public static void main(String[] args) {
+
+        // Пример входных данных
+        Object[] params = {"model", "V-60", "country", "Germany", "city", "Berlin", "year", null, "active", true};
+
+        String query = buildQuery(params);
+        System.out.println(query);
+    }
+
+    public static String buildQuery(Object[] params) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM users WHERE ");
+        boolean firstCondition = true;
+
+        for (int i = 0; i < params.length; i += 2) {
+            String key = (String) params[i];
+            Object value = params[i + 1];
+
+            if (value != null) {
+                if (!firstCondition) {
+                    sql.append(" AND ");
+                }
+                sql.append(key).append(" = ").append(value instanceof String ? "'" + value + "'" : value);
+                firstCondition = false;
+            }
+        }
+        return firstCondition ? "SELECT * FROM users" : sql.toString();
+    }
+}
